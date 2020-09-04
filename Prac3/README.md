@@ -50,7 +50,3 @@ Possible bit widths include:
   - You need to add ```-mfp16-format=ieee``` to ```$(CFLAGS)``` to use 16 bit floating point
 #### Editing compiler flags
 To edit compiler flags, changes need to be made in the makefile. Read the practical for further instruction.
-#### Making use of hardware acceleration
-You need to instruct the compiler to make use of specifc instruction sets. To do so, you need the 
-```-mfpu=<floating_point_unit>``` 
-flag. This is added as a part of ```$(CFLAGS)```
