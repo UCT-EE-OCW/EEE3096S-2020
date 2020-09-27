@@ -130,6 +130,6 @@ class ES2EEPROM:
 
 if __name__ == "__main__":
     eeprom = ES2EEPROM()
-    eeprom.clear(8192)
+    eeprom.clear(4096)
     eeprom.populate_mock_scores()
 
