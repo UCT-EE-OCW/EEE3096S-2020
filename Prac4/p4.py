@@ -94,7 +94,7 @@ def save_scores():
 
 # Generate guess number
 def generate_number():
-    return random.randint(0, pow(2, 3))
+    return random.randint(0, pow(2, 3)-1)
 
 
 # Increase button pressed
