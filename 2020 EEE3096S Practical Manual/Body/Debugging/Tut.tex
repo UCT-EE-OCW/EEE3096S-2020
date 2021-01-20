@@ -1,0 +1,111 @@
+\section{Tutorial - Debugging using gdb}
+By the end of this tutorial, we expect you to:
+\begin{itemize}
+    \item Be comfortable working in terminal/on the command line
+    \item Understand real-time debugging
+    \item Be familiar with at least 1 development and debugging tool-chain
+\end{itemize}
+
+\subsection{Requirements}
+For this prac we'll be working with C/C++. In order to do so, you need to have a suitable compiler. Ubuntu and most linux Distros have this by default. On Windows however, you'll need MinGW. For a guide on how to install and configure that, visit \href{http://wiki.ee.uct.ac.za/MinGW}{this page} on the EE Wiki.
+
+
+\subsection{Learning resources}
+There's more information in these links than you will need for this practical, but they have been curated to make the information more relevant to you.
+
+A quick overview of toolchains, makefiles and compilers:\footnote{The video covers details specific to 2019 Prac's 2 (this year's Prac 3!) but it serves as a reasonable overview to compilation. Don't worry if it's scary! We'll walk you through the process in this work package and future relevant work packages.}
+\begin{itemize}
+    \item \href{https://www.youtube.com/watch?v=XkITUjMg0s4}{https://www.youtube.com/watch?v=XkITUjMg0s4}
+    \item \href{http://wiki.ee.uct.ac.za/Toolchains,_Compilers_And_Makefiles}{http://wiki.ee.uct.ac.za/Toolchains,\_Compilers\_And\_Makefiles}
+\end{itemize} 
+
+
+Information on gdb: 
+\begin{itemize}
+    \item \href{http://wiki.ee.uct.ac.za/GNU\_Debugger\_(GDB)}{http://wiki.ee.uct.ac.za/GNU\_Debugger\_(GDB)}
+\end{itemize}
+
+\subsection{Simple gdb walkthrough}
+To learn about gsb, let's create a very simple\footnote{Incredibly simple.} calculator. 
+\begin{enumerate}
+    \item Create a file called ``main.c" on the command line:\\
+        Ubuntu: \verb|$touch main.c|\\ 
+        Windows: \verb|type nul > main.c|
+    \item Open the file in your favourite editor.:\\
+        Ubuntu: \verb|$nano main.c|\\
+        Windows: \verb|notepad main.c|\\
+        However it is recommended you use notepad++ which can be downloaded   \href{https://notepad-plus-plus.org/downloads/}{here}.\\
+        To start notepad++ from the command line, use \verb|start notepad++ main.c|
+        
+    \item Inside it, place the following code:
+        \begin{lstlisting}[gobble=8]
+        # include <stdio.h>
+        int main(){
+	        int a, b, sum;
+
+	        printf("Enter a value for a: ");
+	        scanf("%d", &a);
+
+	        printf("Enter a value for b: ");
+	        scanf("%d", &a);
+
+	        sum = a + b;
+
+	        printf("The sum of a and b is %d \n.",sum);
+        }
+        \end{lstlisting}
+    \item Compile it with the debugging flag:\\
+        Ubuntu: \verb|$ gcc -g main.c|\\
+        Windows: \verb|gcc -g main.c| \\ Note that this assumes you've correctly installed and configured MinGW
+        
+    \item Run it!\\
+        Ubuntu: \verb|$ ./a.out|\\
+        Windows: \verb|a.exe|\\
+        If you try add two numbers - you'll see something really odd happen! Let's use \verb|gdb| to figure it out
+   
+    \item Open it in gdb:\\
+        Ubuntu: \verb|$ gdb a.out|\\
+        Windows: \verb|gdb.exe a.exe| 
+    \item We need to add breakpoints. Let's add them at a points where we need to validate data:
+    \begin{enumerate}
+        \item Line 6 - once we have a value for a\\
+        \verb|break 6|
+        \item Line 9 - once we have a value for for b\\
+        \verb|break 9|
+        \item Line 12 - once we've added them together\\
+        \verb|break 12|
+    \end{enumerate}
+    \item Run the application inside gdb!\\
+    \verb|run|
+    \begin{enumerate}
+        \item You'll be prompted to enter in a value for a. Enter in something simple, such as 3
+        \item Once you hit the enter key, gdb will step in. Let's print the value of a to ensure it is 3\\
+        \verb|print a|
+        \item If we're happy that it's the value we entered, we can continue execution by entering in \verb|c| and pressing enter.
+        \item We're prompted for a value for b. Let's do another simple number, 5 \\(Please note Windows may not prompt you for the next number, but you can enter it anyway) %Austin
+        \item gdb now steps in again. Let's validate that the value for b is indeed 5.\\
+        \verb|print b|\\
+        It's not! Let's double check the value of a with \verb|print a|\\
+        The variable a was assigned the value of 5!
+        \item We now know that when we enter out value for b, it's being assigned to a. We also know to look between lines 9 and 11 for our error. Close gdb by typing ``q" and pressing enter. You will be prompted to kill the debugging session, do so by typing ``y" and then pressing enter.
+    \end{enumerate}
+    \item Look for the error.\\
+    Do you see it? Here's a hint: It was caused by a copy-paste that went unedited.\\
+    That's right! Line 10 assigned the value entered for b to the variable a. As a result, a gets updated with the intended value for b, and, because b is never initialised or assigned, it holds a random value from whatever might be in memory.
+    \item Fix up the error, and run the calculator again. It should now work as expected.
+\end{enumerate}
+
+\subsection{SPI questions}
+The answers to the following need to be submitted to Vula in PDF format, with \verb|Tut1_<studnum1_studnum2.pdf| as the format.
+
+\begin{enumerate}
+    \item What do the following stand for? [3 marks]
+    \begin{enumerate}
+        \item MOSI % 1 mark
+        \item MISO % 1 mark
+        \item SCLK % 2 marks "Serial" and "clock"
+    \end{enumerate}
+    \item How might you connect multiple SPI devices on a single SPI bus? [3 marks]
+    \item Draw a signal timing diagram showing the difference between the 2 different clock phase modes SPI can be configured to use. Only 2 bits of example data need to be shown in the timing diagrams [4 marks]\\
+    Consider using \href{https://wavedrom.com/}{wavedrom.com}, though this is not a requirement.
+\end{enumerate}

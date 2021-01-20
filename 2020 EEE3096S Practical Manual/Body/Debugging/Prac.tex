@@ -1,0 +1,95 @@
+\section{Practical - Debugging C code}
+%Previously this practical was intended to teach you debugging on the STM. We also thought about having it done in an emulator such as QEMU, but in the end simple debugging was decided upon.
+
+By the end of this practical, you should:
+\begin{itemize}
+    \item Know how to run programs on the command line
+    \item Apply knowledge of gdb to solve programming problems
+\end{itemize}
+
+\subsection{Overview}
+In this practical, you will:
+\begin{itemize}
+    \item Create a makefile
+    \item Write code to facilitate a badly written function
+    \item Learn a little about SPI
+\end{itemize}
+
+\subsection{Deliverables}
+At the end of this practical, you must
+\begin{itemize}
+    \item Submit a single pdf file to vula, named \verb|Prac1-Code\_Studnum1\_Studnum2.pdf|
+\end{itemize}
+
+\subsection{Scenario}
+You are on a team responsible for developing a super simple SPI interface for working with a low baud-rate multiplexer. To save costs, you suggest that, given the scope of the problem is so well defined and the requirements so loose, you can get away with using the GPIO pins of a cheap microcontroller instead of having to buy a microcontroller with dedicated SPI pins. Your team leader takes this idea and presents it to management as their own.
+
+Your corporate overlords then decide that contracting out development of their new simple SPI shifter device would work out even cheaper. You build up some courage and send an email: You're quite certain third-party developers (especially ones considered ``cheap") might not have the technical insight and experience with the product you're developing, and perhaps might not be as experienced in the field as a whole. This unfortunately results in nothing but a meeting with HR about corporate structure and respecting seniors in the company.
+
+Much to their surprise (but definitely not yours), the code is returned badly written, dysfunctional, and completely unusable. It's clear that the developer they found doesn't understand SPI, or even C programming. They've now tasked you with finding the errors and fixing the code. Your team leader, now claiming that the idea was yours, gets upset and makes you work over the weekend to fix the problem.
+
+Consider the code below. It is intended to implement the ability to shift out data over SPI using GPIO pins. The code below contains multiple errors - both in terms of logic and what is expected of the SPI protocol. Using gdb, determine the failure points of the program. Consolidate these items into a single PDF and submit it on Vula.
+
+You can make the following assumptions:
+\begin{itemize}
+    \item The hardware is all connected and configured correctly
+    \item Setting the variables \verb|dataPin| and \verb|clockPin| writes those vales to the given pins
+    \item The clock pin normally sits sits low (CPOL = 0)
+    \item The expected value should be written out on the rising edge of \verb|clockPin| (CPHA = 1)
+    \item The value intended to be shifted out is \verb|0b11010101|
+\end{itemize}
+
+% The code contains the following problems:
+    % shiftOut function states int return type, but it doesn't have one
+    % C has no byte type. The correct type is unsigned char
+    % There's no function definition
+    % line 24 the value in the call to shiftOut has a typo
+    % the variable i is not initialised
+    % line 8, the MSB should be shifted out first
+    % there's an out by 1 error, on line 8, i should start at 7
+        % all of this means the correct line 8 should be:  for (i=7; i>=0; i--)  {
+    % line 16 dataPin asserted as 1 instead of pinState
+
+Code is on the following page.
+
+\newpage
+\begin{lstlisting}
+//a very legitimate and well tested function for shifting out data
+int shiftOut(byte myDataOut) {
+    int pinState;
+	
+    int dataPin = 0;
+    int clockPin = 0;
+    
+    for (i<=0; i=8; i++)  {
+      clockPin = 0;
+      if ( myDataOut & (1>>i) ) {
+        pinState= 1;
+      }
+      else {  
+        pinState= 0;
+      }
+      dataPin = 1;
+      clockPin =  1;
+      dataPin = 0;
+    }
+    clockPin = 0;
+}
+
+int main(){
+    shiftOut(0b10110101);
+	return 1;
+}
+\end{lstlisting}
+
+\subsection{Tasks}
+Submit the following in a single PDF to Vula. Be sure to include all student numbers in the document name!
+\begin{enumerate}
+    \item Get the code to compile [3]\\
+        Compiler warnings should help you a lot here!
+    \item Draw the expected timing diagram [2]
+    \item Using gdb, determine the values of \verb|dataPin| and \verb|clockPin| at various points and use it to draw a timing diagram. [10]\\
+    Detail where you're placing breakpoints (if you use line number, be sure to show line numbers in your code for reference for whoever is marking - it's better just to use the actual line of code rather than a line number) and how you're using this information to generate a timing diagram. You're going to need a minimum of 2 breakpoints to properly check values at this point.
+    \item Submit the corrected code in the pdf. [5]\\
+    \textbf{NOT} as an image! Copy and paste the text.
+\end{enumerate}

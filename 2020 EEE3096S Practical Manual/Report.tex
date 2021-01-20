@@ -1,0 +1,46 @@
+\input{Preamble/Preamble}
+
+\begin{document}
+\begin{sloppypar}
+
+\input{FrontMatter/TitlePage.tex}
+
+\input{FrontMatter/Abstract}
+
+\tableofcontents
+\clearpage
+
+% Debugging prac
+\chapter{Work Package 1}
+\input{Body/Debugging/Tut}
+\input{Body/Debugging/Prac}
+
+% ALU
+\chapter{Work Package 2}
+\input{Body/ALU_Verilog/Tut}
+\input{Body/ALU_Verilog/Prac}
+
+% First RPi Prac - Benchmarking & Intro
+ \chapter{Work Package 3}
+ \input{Body/Benchmarking/Tut} % Introduces students to BASH, git, etc
+ \input{Body/Benchmarking/Prac} % Heterodyning, C/C++ vs Python
+
+
+% I2C, PWM and the RTC
+\chapter{Work Package 4}
+This work package details information on some good practice when working with embedded systems, such as debouncing, call backs, pull up and pull down logic, as well as more interesting concepts such as pulse width modulation, I2C and EEPROM. For the tutorial you will be required to do some research and answer some simple questions. For the practical you will make a simple number-guessing game.
+\input{Body/I2C_PWM/Tut}
+\input{Body/I2C_PWM/Prac}
+
+% % SPI and Raspberry Pi ADC
+ \chapter{Work Package 5}
+ \input{Body/ADC_Voltmeter/Tut}
+ \input{Body/ADC_Voltmeter/Prac}
+
+% % PART A - SPI sensor reading, MQTT
+% Part B - Geographic Information System with MQTT data?
+\input{Body/ReducedMiniProject/Overview}
+
+
+\end{sloppypar}
+\end{document}

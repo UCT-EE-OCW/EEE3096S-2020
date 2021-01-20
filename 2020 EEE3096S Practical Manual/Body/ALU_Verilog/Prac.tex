@@ -1,0 +1,75 @@
+\section{Practical - Implementing an ALU}
+By the end of this practical, you will have a working understanding of:
+\begin{itemize}
+    \item Simple test benches in Vivado
+    \item An ALU
+    \item Writing Verilog code
+\end{itemize}
+
+\subsection{Scenario}
+You will need to implement a Verilog module to create an 8-bit ALU with the following shown in table \ref{tbl:VSALUOP} below.
+The design must also include an internal ``accumulator" register, and have a clocked input. No flags are necessary for this implementation.
+
+\begin{table}[H]
+\centering
+\caption{List of operations for the VS-ALU}
+\label{tbl:VSALUOP}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Operation} & \textbf{Opcode} & \textbf{ALU Operation}               \\ \hline
+ADD                & 0000            & Acc = A + B                          \\ \hline
+SUB                & 0001            & Acc = A - B                          \\ \hline
+MUL                & 0010            & Acc = A * B                          \\ \hline
+DIV                & 0011            & Acc = A / B                          \\ \hline
+ADDA               & 0100            & Acc = Acc + A                        \\ \hline
+MULA               & 0101            & Acc = Acc * A                        \\ \hline
+MAC                & 0110            & Acc = Acc + (A * B)                  \\ \hline
+ROL                & 0111            & Acc = A rotated left by 1            \\ \hline
+ROR                & 1000            & Acc = A rotated right by 1           \\ \hline
+AND                & 1001            & Acc = A and B                        \\ \hline
+OR                 & 1010            & Acc = A or B                         \\ \hline
+XOR                & 1011            & Acc = A xor B                        \\ \hline
+NAND               & 1100            & Acc = A nand B                       \\ \hline
+ETH                & 1101             & Acc = 0xFF is A=B else 0             \\ \hline
+GTH                & 1110            & Acc = 0xFF if A\textgreater{}B else 0\\ \hline
+LTH                & 1111            & Acc = 0xFF if A\textless{}B else 0   \\ \hline
+\end{tabular}%
+\end{table}
+
+To elaborate on the above:
+\begin{itemize}
+    \item You can assume A and B are unsigned
+    \item \verb|ROL| and \verb|ROR| commands implement left and right shifts respectively, but the bit that is shifted out is moved back to the new bit.
+    \begin{itemize}
+        \item Consider \verb|1011001| as an example. with the \verb|ROL| command, the result is 0110011. With \verb|ROR| we get 1101100.
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Deliverables}
+A single group member must submit a zip file called ``Prac2\_Studnum1\_studnum2.zip". In it you must submit the following 3 files. Each file inside the compressed folder must also be correctly named with both student numbers.
+
+\begin{enumerate}
+    \item A file containing your code ``Prac2\_Studnum1\_studnum2.v"
+    \item A file containing the testbench you used to test your design ``Prac2\_Studnum1\_studnum2\_tb.v"
+    \item A PDF showing screen captures of your test bench output and waveform produced for the following operations:
+    \begin{itemize}
+        \item ADD
+        \item MAC, with an ACC initial value of 0b00000101
+        \item ROR
+        \item LTH
+    \end{itemize}
+\end{enumerate}
+
+
+
+\subsection{Marking}
+Marks will be awarded for:
+\begin{itemize}
+    \item Code neatness (includes commenting) [5]
+    \item Code completion (implementing all the ALU operations) [10]
+    \item Correct results from the marking testbench [15]\\
+    You are required to create your own testbench to check your operations, but when marking your module another will be used.
+\end{itemize}
+
+Marks will be deducted for not following instructions.

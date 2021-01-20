@@ -1,0 +1,48 @@
+\newpage
+\begin{center}
+    \rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries Mini-Projects A \& B}\\
+	\huge Terrarium Logger
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	\includegraphics[scale = 0.5]{Figures/terrarium.jpg}\\[1 cm]
+	\textsc{\Large EEE3096S}\\[0.5 cm]
+	\textsc{\large Embedded Systems II}\\[0.5 cm]
+	\textsc{\LARGE University of Cape Town}\\[0.5 cm]
+\end{center}
+\newpage
+\chapter{The Terrarium Mini-logger}
+\section{Overview}
+The mini-project is a chance for you to use what you have learnt in this course and test your problem-solving skills. The projects use everything learnt in the previous practicals - so here's to hoping that you paid attention and remembered those! All students need to do Mini-Project A. Only CS students (EEE3095S students) need to do Mini-Project B.
+
+\subsection{Scenario}
+Your uncle has heard of you achieving great things in an embedded systems course at university. He approaches you and requests your assistance in building an environment logger for his terrarium to assist with taking care of his pet bearded dragon. As they are ridiculously adorable (bearded dragons, not uncles) - you agree to assist.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\columnwidth]{Figures/uncledragon.png}
+\caption{You can read more about this adorable creature \href{https://knowyourmeme.com/memes/butter-the-bearded-dragon}{here}}
+\label{ButterDragon}
+\end{figure}
+
+Your uncle needs to monitor temperature and light levels at varying intervals, which needs to be adjusted by a button press. He also wants to enable and disable logging by pressing a second button. Your uncle has a spare system which they can use to log into the Pi remotely and monitor console output, which he lists as one of the requirements. However, they wish to also monitor the terrarium remotely when they are not there. Their son, who plays with Arduinos, has spoken a lot about \href{https://blynk.io/}{Blynk} for IoT devices. You decide to look into these options for remote monitoring. 
+
+The following requests were also made:
+\begin{itemize}
+    \item the most recent 20 samples are stored on an EEPROM chip as backup, in the case that internet access is lost.
+\end{itemize}
+
+
+\subsection{Basic Details}
+Your objective for Mini-Project A environment logger. Mini-Project B is an add-on to Mini-Project A which involves minimal work to extend the functionality of the monitoring system. If you are in a group with both CS and EE members, you can both work together on Mini-Project A. For Mini-Project B, CS students can chose to work alone or partner up with another CS student to form new groups of 2.
+
+Generally speaking, an environment logger interacts with the world around it by measuring various factors from GPS location to air pollution. While a single sensor is useful to monitor a single location, many can be scattered around a broader area to monitor that area as well as any patterns emerging in that broader area. This data can be used to track changes over time to forecast effects or make inferences between locations and how they might affect each other. In these mini-projects there is not much data to track and there aren't many potential effects to forecast, though the principles remains the same.
+
+Project A and B differ in how that data is presented to end users. Project A is simply accessed through a terminal. Project B will add reporting data to Blynk, an app that can be installed on smartphones. The environment logger can also be controlled via the Blynk app.
+
+\textbf{NOTE: FOR EACH SUBMISSION, BOTH STUDENTS NEED TO INCLUDE A SIGNED PLAGIARISM DECLARATION AT THE END OF THE SUBMISSION, WITH THE SUBMISSION AND BOTH PLAGIARISM DECLARATIONS IN A SINGLE PDF. THE FORM CAN BE FOUND AT THE END OF THIS MANUAL.}
+
+\input{Body/ReducedMiniProject/ProjA}
+\input{Body/ReducedMiniProject/ProjB}
+
+
+
