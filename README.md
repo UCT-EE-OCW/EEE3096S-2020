@@ -2,36 +2,23 @@
 
 Lab manual contains all details.
 
-## Workpackage 1
-### Tutorial 1
-Learn gdb and SPI
-### Prac 1
-Debug code for bitbanging SPI.
+## Work packages
+1. Workpackage 1
+    - Tutorial: Learn gdb and SPI
+    - Prac: Debug code for bitbanging SPI.
+2. Workpackage 2
+    - Tutorial: EDA playground walkthrough and some tutorial stuff
+    - Prac: Implement an ALU in verilog.
 
-
-## Workpackage 2
-### Tutorial
-EDA playground walkthrough and some tutorial stuff
-### Prac
-Implement an ALU in verilog.
-
-## Workpackage 3
-### Tutorial
-Pi setup and linux basics
-### Prac
-Benchmarking C vs Python with heterodyning as a usecase.
-
-## Workpackage 4
-### Tutorial
-I2C, debounging and PWM.
-### Prac
-I2C and PWM - integrating EEPROM to implement a numebr guessing game.
-
-
-## Workpackage 5
-### ADC Metrics
-### Prac
-MCP3008 ADC on the Pi.
+3. Workpackage 3
+    - Tutorial: Pi setup and linux basics
+    - Prac: Benchmarking C vs Python with heterodyning as a usecase.
+4. Workpackage 4
+    - Tutorial: I2C, debounging and PWM.
+    - Prac: I2C and PWM (integrating EEPROM to implement a numebr guessing game)
+5. Workpackage 5
+    - Tutorial: ADC Metrics
+    - Prac: MCP3008 ADC on the Pi.
 
 ## Project
 Implementation of sensors on the Pi to create an environment logging system for a terrarium.
